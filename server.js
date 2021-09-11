@@ -1,9 +1,18 @@
+// Simple To-Do App
+// Built with ExpressJS
+// Ali Elahiraad
+
+
 // Import needs
 const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
 const sanitizeHTML = require('sanitize-html');
 const todo_app = express();
 let db;
+
+// Setting port
+let port = process.env.PORT || 3000;
+
 // Using methods
 todo_app.use(express.static('public'));
 todo_app.use(express.json());
@@ -16,7 +25,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (e
   if (err) throw new Error(err);
   console.log("Connected to database successfully !");
   db = client.db();
-  todo_app.listen(3000);
+  todo_app.listen(port);
 });
 // UserName : aliel
 // Password : Ali@123
