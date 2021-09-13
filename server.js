@@ -7,11 +7,12 @@
 const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
 const sanitizeHTML = require('sanitize-html');
+const dotenv = require('dotenv');
 const todo_app = express();
 let db;
 
 // Setting port
-let port = process.env.PORT || 3000;
+let port = process.env.PORT;
 
 // Using methods
 todo_app.use(express.static('public'));
@@ -20,8 +21,7 @@ todo_app.use(express.urlencoded({ extended: false }));
 todo_app.use(passwordProtection);
 
 // Connecting to the database
-const uri = 'mongodb+srv://aliel:BVzc2XUmBveZsGm@cluster0.u0uy0.mongodb.net/todo_app_database?retryWrites=true&w=majority';
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+MongoClient.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err) throw new Error(err);
   console.log("Connected to database successfully !");
   db = client.db();
